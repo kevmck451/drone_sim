@@ -5,7 +5,10 @@ from pathlib import Path
 
 if __name__ == '__main__':
 
+    # path to folder where the bin files are
     input_folder = './Data/_Experiment/Logs4'
+
+    # path where you want to save the synthesized wav files
     output_folder = './Data/_Experiment/Audios/5-13-25'
 
     for log_file in Path(input_folder).glob("*.bin"):
