@@ -1,11 +1,14 @@
-from drone_sim.generate_all_synthetic_ch import *
+from generate_all_synthetic_ch import *
 
 from pathlib import Path
 
 
 if __name__ == '__main__':
 
+    # path to folder where the bin files are
     input_folder = './Data/_Experiment/Logs4'
+
+    # path where you want to save the synthesized wav files
     output_folder = './Data/_Experiment/Audios/5-13-25'
 
     for log_file in Path(input_folder).glob("*.bin"):
@@ -19,12 +22,12 @@ if __name__ == '__main__':
             synthetic_pwm = pwm_data[f"channel_{channel}"]["pwm_values"]
             pwm_times = pwm_data[f"channel_{channel}"]["timestamps"]
 
-            pwm_audio_file = "./Data/Sweep Ref 2/motor_sweep.wav"
-            pwm_timestamps = "./Data/Sweep Ref 2/sweep pwm times.csv"
+            pwm_audio_file = "./sweep_reference/motor_sweep.wav"
+            pwm_timestamps = "./sweep_reference/sweep pwm times.csv"
 
             audio_list.append(generate_synthetic_audio(synthetic_pwm, pwm_audio_file, pwm_timestamps, pwm_times))
 
-        # Mix Channels into One![](../../../../../Desktop/Screenshot 2025-05-11 at 7.51.09 PM.jpg)
+        # Mix Channels into One
         max_length = max(audio.shape[0] for audio in audio_list)
         combined_audio = np.zeros(max_length, dtype=np.float32)
 
